@@ -572,6 +572,15 @@ client.on('interactionCreate', async (interaction) => {
         })
     }
 })
+const express = require('express');
+var app = express();
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+   });
+const port = 3000;
+app.listen(port, () => {
+ console.log(`Server is running at http://localhost:${port}`);
+});
 
 // The token of your robot to be inserted
 client.login(process.env.BOT_TOKEN)
