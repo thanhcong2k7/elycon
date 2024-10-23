@@ -586,4 +586,4 @@ app.listen(port, () => {
 if(process.env.BOT_TOKEN)
     client.login(process.env.BOT_TOKEN)
 else console.log('WHAT?')
-//ngon fet
+//again
