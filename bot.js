@@ -583,5 +583,7 @@ app.listen(port, () => {
 });
 
 // The token of your robot to be inserted
-client.login(process.env.BOT_TOKEN)
+if(process.env.BOT_TOKEN)
+    client.login(process.env.BOT_TOKEN)
+else console.log('WHAT?')
 //ngon fet
