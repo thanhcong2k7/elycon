@@ -579,7 +579,7 @@ app.get('/', (req, res) => {
    });
 const port = 3000;
 app.listen(port, () => {
- console.log(`Server is running at http://localhost:${port}`);
+ console.log(`Server is running at port ${port}`);
 });
 
 // The token of your robot to be inserted
