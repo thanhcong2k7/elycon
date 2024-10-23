@@ -575,11 +575,15 @@ client.on('interactionCreate', async (interaction) => {
 const express = require('express');
 var app = express();
 app.get('/', (req, res) => {
-    res.send("It's Etheriaa here! What are you trying to do?");
+    res.send("It's Etheriaa here! What are you trying to do? Server is running properly btw...");
    });
-const port = 3000;
+const port = 80;
+const ngrok = require('ngrok');
+
 app.listen(port, () => {
- console.log(`Server is running at port ${port}`);
+    console.log(`Server is running at port ${port}`);
+    ngrok.connect({addr:80, authtoken:"2KrriTtNn9thCf7ypfg5m7i5Rm2_6mV6JBBxE4rvch8XTRhmL", domain:"balanced-oyster-classic.ngrok-free.app"}).then(urll => console.log(urll))
+        .catch(err => console.log(err));
 });
 
 // The token of your robot to be inserted
