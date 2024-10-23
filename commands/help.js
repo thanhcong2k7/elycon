@@ -5,17 +5,17 @@ const helpEmbed = () => new EmbedBuilder()
     .setDescription(':crystal_ball: Hướng dẫn sử dụng')
     .addFields(
         {
-            name: 'Cài đặt kênh chơi nối từ',
+            name: 'Chọn kênh chơi nối từ',
             value: 'Dùng lệnh `/set-channel <channel>` trong kênh nối từ.',
             inline: true
         },
         {
-            name: 'Bắt đầu lượt chơi',
+            name: 'Bắt đầu lượt chơi mới',
             value: 'Dùng lệnh `!start` trong kênh chơi nối từ',
             inline: true
         },
         {
-            name: 'Dừng lượt chơi',
+            name: 'Dừng lượt chơi hiện tại',
             value: 'Dùng lệnh `!stop` trong kênh chơi nối từ, lượt mới sẽ tự động bắt đầu!',
             inline: true
         },
@@ -25,7 +25,7 @@ const helpEmbed = () => new EmbedBuilder()
             inline: true
         },
         {
-            name: 'Xem bảng xếp hạng server',
+            name: 'Xem bảng xếp hạng trong server',
             value: 'Dùng lệnh `/rank`',
             inline: true
         },
@@ -35,12 +35,12 @@ const helpEmbed = () => new EmbedBuilder()
             inline: true
         },
         {
-            name: 'Report từ sai trong từ điển',
+            name: 'Báo cáo từ sai trong từ điển',
             value: 'Dùng lệnh `/report <từ> [lý do]`',
             inline: true
         },
         {
-            name: 'Xem thông tin server, check Premium',
+            name: 'Xem thông tin server',
             value: 'Dùng lệnh `/server`',
             inline: true
         },
@@ -75,7 +75,7 @@ const helpEmbed = () => new EmbedBuilder()
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('help')
-        .setDescription('Xem hướng dẫn sử dụng BOT'),
+        .setDescription('Xem hướng dẫn sử dụng bot'),
     async execute(interaction) {
         await interaction.reply({
             embeds: [helpEmbed()],

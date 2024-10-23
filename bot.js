@@ -150,7 +150,7 @@ axios.get(contributeWordsUrl)
 // global config
 const START_COMMAND = '!start'
 const STOP_COMMAND = '!stop'
-const PREFIX = '?phobo'
+const PREFIX = '?elycon'
 let queryCount = stats.getQuery()
 
 // We create a collection for commands
@@ -327,7 +327,7 @@ client.on('messageCreate', async message => {
         } else sendMessageToChannel('Trò chơi vẫn đang tiếp tục. Bạn có thể dùng `!stop`', configChannel)
         return
     } else if (message.content === STOP_COMMAND) {
-
+/*
         if(!message.member.permissionsIn(configChannel).has(PermissionsBitField.Flags.ManageChannels)) {
             message.reply({
                 content: 'Bạn không có quyền dùng lệnh này',
@@ -335,7 +335,7 @@ client.on('messageCreate', async message => {
             })
             return
         }
-
+*/
         if (isRunning) {
             sendMessageToChannel(`Đã kết thúc lượt này! Lượt mới đã bắt đầu!`, configChannel)
             initWordData(configChannel)
