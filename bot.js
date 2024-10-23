@@ -575,7 +575,7 @@ client.on('interactionCreate', async (interaction) => {
 const express = require('express');
 var app = express();
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send("It's Etheriaa here! What are you trying to do?");
    });
 const port = 3000;
 app.listen(port, () => {
