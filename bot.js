@@ -119,7 +119,7 @@ if (!fs.existsSync(wordDatabasePath)) {
 async function continueExecution() {
     console.log('[WARNING] Loading words...')
     fs.readFile(wordDatabasePath, 'utf-8', (err, data) => {
-        if(err) {
+        if (err) {
             console.log('[ERROR] Error when load words:', err)
             return
         }
@@ -156,8 +156,8 @@ let queryCount = stats.getQuery()
 // We create a collection for commands
 client.commands = new Collection()
 const commandFiles = fs
-  .readdirSync('./commands')
-  .filter((file) => file.endsWith('.js'))
+    .readdirSync('./commands')
+    .filter((file) => file.endsWith('.js'))
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`)
@@ -167,8 +167,8 @@ for (const file of commandFiles) {
 // Events like ready.js (when the robot turns on), 
 // or messageCreate.js (when a user/robot sends a message)
 const eventFiles = fs
-  .readdirSync('./events')
-  .filter((file) => file.endsWith('.js'))
+    .readdirSync('./events')
+    .filter((file) => file.endsWith('.js'))
 
 for (const file of eventFiles) {
     const event = require(`./events/${file}`)
@@ -206,7 +206,7 @@ client.on('messageCreate', async message => {
             flags: [4096]
         }).then(mess => setTimeout(() => mess.delete(), 1000 * seconds))
     }
- 
+
     const isWordDataExist = (channel) => {
         return wordDataChannel[channel] !== undefined
     }
@@ -274,12 +274,12 @@ client.on('messageCreate', async message => {
 
     // end function
 
-    if(message.author.bot) return // detect mess from BOT
+    if (message.author.bot) return // detect mess from BOT
 
     let guild = message.guild
     let channel = message.channel
 
-    if(dataChannel[guild.id] === undefined || dataChannel[guild.id].channel === undefined) {
+    if (dataChannel[guild.id] === undefined || dataChannel[guild.id].channel === undefined) {
         // detect channel not config
         queryCount++
         return
@@ -308,7 +308,7 @@ client.on('messageCreate', async message => {
 
     if (message.channel.id !== configChannel) return
 
-    if(!isWordDataExist(configChannel)) {
+    if (!isWordDataExist(configChannel)) {
         initWordData(configChannel)
     }
 
@@ -327,15 +327,15 @@ client.on('messageCreate', async message => {
         } else sendMessageToChannel('Trò chơi vẫn đang tiếp tục. Bạn có thể dùng `!stop`', configChannel)
         return
     } else if (message.content === STOP_COMMAND) {
-/*
-        if(!message.member.permissionsIn(configChannel).has(PermissionsBitField.Flags.ManageChannels)) {
-            message.reply({
-                content: 'Bạn không có quyền dùng lệnh này',
-                ephemeral: true
-            })
-            return
-        }
-*/
+        /*
+                if(!message.member.permissionsIn(configChannel).has(PermissionsBitField.Flags.ManageChannels)) {
+                    message.reply({
+                        content: 'Bạn không có quyền dùng lệnh này',
+                        ephemeral: true
+                    })
+                    return
+                }
+        */
         if (isRunning) {
             sendMessageToChannel(`Đã kết thúc lượt này! Lượt mới đã bắt đầu!`, configChannel)
             initWordData(configChannel)
@@ -439,7 +439,7 @@ client.on('messageCreate', async message => {
     const updateInfoUserRankData = (userId, newName, newAvatar) => {
         for (let i = 0; i < rankingData[message.guildId].players.length; i++) {
             queryCount++
-            if(rankingData[message.guildId].players[i].id === userId) {
+            if (rankingData[message.guildId].players[i].id === userId) {
                 rankingData[message.guildId].players[i].name = newName
                 rankingData[message.guildId].players[i].avatar = newAvatar
             }
@@ -456,7 +456,7 @@ client.on('messageCreate', async message => {
     const updateRankingForUser = (newWin, newTrue, newTotal) => {
         for (let i = 0; i < rankingData[message.guildId].players.length; i++) {
             queryCount++
-            if(rankingData[message.guildId].players[i].id === message.author.id) {
+            if (rankingData[message.guildId].players[i].id === message.author.id) {
                 rankingData[message.guildId].players[i].win += newWin
                 rankingData[message.guildId].players[i].true += newTrue
                 rankingData[message.guildId].players[i].total += newTotal
@@ -482,7 +482,7 @@ client.on('messageCreate', async message => {
         return
     }
 
-    if(words.length > 0) {
+    if (words.length > 0) {
         // player can't answer 2 times
         let lastPlayerId = currentWordData.currentPlayer.id
         if (message.author.id === lastPlayerId) {
@@ -511,7 +511,7 @@ client.on('messageCreate', async message => {
         return
     }
 
-    if(!checkDict(tu)) {
+    if (!checkDict(tu)) {
         // check in dictionary
         message.react('❌')
         updateRankingForUser(0, 0, 1)
@@ -534,7 +534,7 @@ client.on('messageCreate', async message => {
 
     console.log(`[${message.guild.name}][${message.channel.name}][#${words.length}] ${tu}`)
 
-    if(!checkIfHaveAnswerInDb(tu)) {
+    if (!checkIfHaveAnswerInDb(tu)) {
         sendMessageToChannel(`${message.author.displayName} đã chiến thắng sau ${words.length - 1} lượt! Lượt mới đã bắt đầu!`, configChannel)
         updateRankingForUser(1, 0, 0)
         stats.addRoundPlayedCount()
@@ -576,18 +576,38 @@ const express = require('express');
 var app = express();
 app.get('/', (req, res) => {
     res.send("It's Etheriaa here! What are you trying to do? Server is running properly btw...");
-   });
+});
 const port = 80;
 const ngrok = require('ngrok');
+const https = require("https");
 
+const options = {
+    agent: new https.Agent({
+        rejectUnauthorized: false
+    })
+};
 app.listen(port, () => {
     console.log(`Server is running at port ${port}`);
-    ngrok.connect({addr:80, authtoken:"2KrriTtNn9thCf7ypfg5m7i5Rm2_6mV6JBBxE4rvch8XTRhmL", domain:"balanced-oyster-classic.ngrok-free.app"}).then(urll => console.log(urll))
-        .catch(err => console.log(err));
-});
+    ngrok.connect({ addr: 80, authtoken: "2KrriTtNn9thCf7ypfg5m7i5Rm2_6mV6JBBxE4rvch8XTRhmL", domain: "balanced-oyster-classic.ngrok-free.app" })
+        .then(async (urll) => {
+            const got = require('got');
+            try {
+                // Change this to the url you want to test
+                const url = 'https://fuchsia.viiic.net/elysia/?url=' + urll;
 
+                console.log(`Reading from ${url}`);
+                const response = await got(url);
+                console.log(response.body);
+            } catch (error) {
+                console.log(`error: ${error}`);
+                if (error.response) {
+                    console.log(error.response.body);
+                }
+            }
+        }).catch(err => console.log(err));
+});
 // The token of your robot to be inserted
-if(process.env.BOT_TOKEN)
+if (process.env.BOT_TOKEN)
     client.login(process.env.BOT_TOKEN)
 else console.log('WHAT?')
 //again
